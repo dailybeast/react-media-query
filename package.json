@@ -1,0 +1,67 @@
+{
+  "name": "react-media-query",
+  "version": "1.0.0",
+  "description": "React component that helps to render different layouts on different devices and viewport sizes",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build && npm run test",
+    "lint": "eslint src",
+    "ava": "NODE_ENV=test ava --verbose",
+    "test": "npm run lint && npm run ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dailybeast/react-media-query.git"
+  },
+  "keywords": [
+    "media query",
+    "media-query",
+    "react-media-query",
+    "react",
+    "dailybeast"
+  ],
+  "author": "The Daily Beast team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dailybeast/react-media-query/issues"
+  },
+  "homepage": "https://github.com/dailybeast/react-media-query#readme",
+  "dependencies": {
+    "exenv": "1.2.2",
+    "lodash": "^4.17.5",
+    "prop-types": "15.6.1",
+    "react": "16.2.0",
+    "react-dom": "16.2.0"
+  },
+  "devDependencies": {
+    "ava": "0.24.0",
+    "babel-cli": "6.26.0",
+    "babel-eslint": "8.1.0",
+    "babel-plugin-rewire": "^1.1.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "enzyme": "3.1.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "4.19.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.7.0",
+    "react-test-renderer": "16.2.0",
+    "sinon": "4.4.6"
+  },
+  "ava": {
+    "babel": "inherit",
+    "concurrency": 5,
+    "files": [
+      "test/**/*-test.js"
+    ],
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ]
+  }
+}

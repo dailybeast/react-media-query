@@ -1,5 +1,5 @@
 {
-  "name": "react-media-query",
+  "name": "@dailybeast/react-media-query",
   "version": "1.0.0",
   "description": "React component that helps to render different layouts on different devices and viewport sizes",
   "main": "dist/index.js",

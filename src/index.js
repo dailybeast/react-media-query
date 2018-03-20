@@ -36,13 +36,14 @@ export default class MediaQuery extends Component {
       maxWidth: PropTypes.number,
       maxDeviceWidth: PropTypes.number,
       maxDeviceHeight: PropTypes.number,
+      landscape: PropTypes.bool,
     })),
     children: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.arrayOf(PropTypes.element),
       PropTypes.string,
     ]).isRequired,
-    component: PropTypes.string,
+    wrapper: PropTypes.string,
   };
 
   static defaultProps = {
@@ -180,7 +181,7 @@ export default class MediaQuery extends Component {
 
   renderComponent() {
     const {
-      component: WrapperComponent,
+      wrapper: WrapperComponent,
       children,
     } = this.props;
 

@@ -232,8 +232,8 @@ test('renderComponent() returns `children`', t => {
   t.is(children.props.className, 'child-element');
 });
 
-test('renderComponent() returns `children` wrapped into `component` element', t => {
-  mediaQuery.setProps({ component: 'hello' });
+test('renderComponent() returns `children` wrapped into `wrapoer` element', t => {
+  mediaQuery.setProps({ wrapper: 'hello' });
 
   const children = instance.renderComponent();
 

@@ -1,6 +1,6 @@
 {
   "name": "@dailybeast/react-media-query",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React component that helps to render different layouts on different devices and viewport sizes",
   "main": "dist/index.js",
   "scripts": {
@@ -31,9 +31,10 @@
   "dependencies": {
     "exenv": "1.2.2",
     "lodash": "^4.17.5",
-    "prop-types": "15.6.1",
-    "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "prop-types": "^15.6.1"
+  },
+  "peerDependencies": {
+    "react": "^16.2.0"
   },
   "devDependencies": {
     "ava": "0.24.0",
@@ -50,6 +51,8 @@
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.1",
     "react-test-renderer": "16.2.0",
     "sinon": "4.4.6"
   },

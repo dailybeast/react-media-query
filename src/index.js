@@ -56,9 +56,9 @@ export default class MediaQuery extends Component {
     super(props);
 
     this.state = {
-      viewportWidth: 0,
-      deviceWidth: 0,
-      deviceHeight: 0,
+      viewportWidth: canUseDOM ? global.window.innerWidth : 0,
+      deviceWidth: canUseDOM ? global.window.screen.availWidth : 0,
+      deviceHeight: canUseDOM ? global.window.screen.availHeight : 0,
       landscape: false,
     };
 

@@ -62,10 +62,12 @@ export default class MediaQuery extends Component {
       landscape: false,
     };
 
+    this.firstRun = true;
     this.recalculate = this.recalculate.bind(this);
     this.matchDefaultBreakpoint = this.matchDefaultBreakpoint.bind(this);
     this.matchAllQueries = this.matchAllQueries.bind(this);
     this.matchQuery = this.matchQuery.bind(this);
+    this.shouldQueryUpdate = this.shouldQueryUpdate.bind(this);
     this.renderComponent = this.renderComponent.bind(this);
 
     this.throttledRecalculate = throttle(this.recalculate, 200);
@@ -86,13 +88,16 @@ export default class MediaQuery extends Component {
     const deviceWidth = global.window.screen.availWidth;
     const deviceHeight = global.window.screen.availHeight;
     const landscape = deviceHeight < deviceWidth;
+    if (this.matchAllQueries() || !this.firstRun) {
+      this.firstRun = false;
+      this.setState({
+        viewportWidth,
+        deviceWidth,
+        deviceHeight,
+        landscape,
+      });
+    }
 
-    this.setState({
-      viewportWidth,
-      deviceWidth,
-      deviceHeight,
-      landscape,
-    });
   }
 
   matchDefaultBreakpoint() {
@@ -108,23 +113,35 @@ export default class MediaQuery extends Component {
     return !!breakpoints.find(breakpoint => breakpoint === defaultBreakpoint);
   }
 
-  matchAllQueries() {
+
+  shouldQueryUpdate() {
     const { breakpoints, queries: additionalQueries, guessedBreakpoint: defaultBreakpoint } = this.props;
+    // const filteredBreakpoints = breakpoints.filter(breakpoint => {
+    //   return (breakpoint !== defaultBreakpoint);
+    // })
+
+// first get current active breakpoint
+    //next compare it
+      // then determine if update is necessary
+    // if (!filteredBreakpoints.length) {
+    //   return false;
+    // }
+        // return true;
 
 
-    const filteredBreakpoints = breakpoints.filter(breakpoint => {
-      // return breakpoint;
-      // filter out the ones that are a match already but only if the viewport is not 0
-      return (breakpoint !== defaultBreakpoint);
-    })
-    console.log('before', breakpoints)
-    console.log('after', filteredBreakpoints)
+        const stuff = this.matchAllQueries();
 
-    if (!filteredBreakpoints.length) {
-      return false;
-    }
 
-    const queries = [...filteredBreakpoints.map(breakpoint => QUERY[breakpoint]), ...additionalQueries];
+
+
+        return true
+  }
+
+
+  matchAllQueries() {
+    const { breakpoints, queries: additionalQueries } = this.props;
+
+    const queries = [...breakpoints.map(breakpoint => QUERY[breakpoint]), ...additionalQueries];
 
     const positiveResult = queries
       .map(query => this.matchQuery(query))
@@ -210,7 +227,7 @@ export default class MediaQuery extends Component {
     let node = null;
     if (canUseDOM) {
       // browser
-      if (this.matchAllQueries()) {
+      if (this.matchAllQueries())  {
         node = this.renderComponent();
       }
     } else if (this.matchDefaultBreakpoint()) {

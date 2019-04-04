@@ -67,7 +67,6 @@ export default class MediaQuery extends Component {
     this.matchDefaultBreakpoint = this.matchDefaultBreakpoint.bind(this);
     this.matchAllQueries = this.matchAllQueries.bind(this);
     this.matchQuery = this.matchQuery.bind(this);
-    this.shouldQueryUpdate = this.shouldQueryUpdate.bind(this);
     this.renderComponent = this.renderComponent.bind(this);
 
     this.throttledRecalculate = throttle(this.recalculate, 200);
@@ -88,7 +87,7 @@ export default class MediaQuery extends Component {
     const deviceWidth = global.window.screen.availWidth;
     const deviceHeight = global.window.screen.availHeight;
     const landscape = deviceHeight < deviceWidth;
-    if (this.matchAllQueries() || !this.firstRun) {
+    // if (this.matchAllQueries() || !this.firstRun) {
       this.firstRun = false;
       this.setState({
         viewportWidth,
@@ -96,7 +95,7 @@ export default class MediaQuery extends Component {
         deviceHeight,
         landscape,
       });
-    }
+    // }
 
   }
 
@@ -112,31 +111,6 @@ export default class MediaQuery extends Component {
 
     return !!breakpoints.find(breakpoint => breakpoint === defaultBreakpoint);
   }
-
-
-  shouldQueryUpdate() {
-    const { breakpoints, queries: additionalQueries, guessedBreakpoint: defaultBreakpoint } = this.props;
-    // const filteredBreakpoints = breakpoints.filter(breakpoint => {
-    //   return (breakpoint !== defaultBreakpoint);
-    // })
-
-// first get current active breakpoint
-    //next compare it
-      // then determine if update is necessary
-    // if (!filteredBreakpoints.length) {
-    //   return false;
-    // }
-        // return true;
-
-
-        const stuff = this.matchAllQueries();
-
-
-
-
-        return true
-  }
-
 
   matchAllQueries() {
     const { breakpoints, queries: additionalQueries } = this.props;

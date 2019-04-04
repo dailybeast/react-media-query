@@ -109,8 +109,22 @@ export default class MediaQuery extends Component {
   }
 
   matchAllQueries() {
-    const { breakpoints, queries: additionalQueries } = this.props;
-    const queries = [...breakpoints.map(breakpoint => QUERY[breakpoint]), ...additionalQueries];
+    const { breakpoints, queries: additionalQueries, guessedBreakpoint: defaultBreakpoint } = this.props;
+
+
+    const filteredBreakpoints = breakpoints.filter(breakpoint => {
+      // return breakpoint;
+      // filter out the ones that are a match already but only if the viewport is not 0
+      return (breakpoint !== defaultBreakpoint);
+    })
+    console.log('before', breakpoints)
+    console.log('after', filteredBreakpoints)
+
+    if (!filteredBreakpoints.length) {
+      return false;
+    }
+
+    const queries = [...filteredBreakpoints.map(breakpoint => QUERY[breakpoint]), ...additionalQueries];
 
     const positiveResult = queries
       .map(query => this.matchQuery(query))

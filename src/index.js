@@ -13,17 +13,21 @@ export const BREAKPOINT = {
 export const QUERY = {
   [BREAKPOINT.DESKTOP]: {
     minWidth: 1032,
+    guessedInitialWidth: 1280,
   },
   [BREAKPOINT.TABLET]: {
     minWidth: 704,
     maxWidth: 1031,
+    guessedInitialWidth: 1024,
   },
   [BREAKPOINT.MOBILE]: {
     maxWidth: 703,
+    guessedInitialWidth: 375,
   },
   [BREAKPOINT.MOBILE_LANDSCAPE]: {
     landscape: true,
     maxDeviceHeight: 703,
+    guessedInitialWidth: 375,
   }
 };
 
@@ -55,14 +59,15 @@ export default class MediaQuery extends Component {
   constructor(props) {
     super(props);
 
+    const guessedWidth = QUERY[props.guessedBreakpoint].guessedInitialWidth;
+
     this.state = {
-      viewportWidth: global.window ? global.window.innerWidth : 0,
-      deviceWidth: global.window ? global.window.screen.availWidth : 0,
-      deviceHeight: global.window ? global.window.screen.availHeight : 0,
+      viewportWidth: guessedWidth,
+      deviceWidth: 0,
+      deviceHeight: 0,
       landscape: false,
     };
 
-    this.firstRun = true;
     this.recalculate = this.recalculate.bind(this);
     this.matchDefaultBreakpoint = this.matchDefaultBreakpoint.bind(this);
     this.matchAllQueries = this.matchAllQueries.bind(this);
@@ -87,16 +92,13 @@ export default class MediaQuery extends Component {
     const deviceWidth = global.window.screen.availWidth;
     const deviceHeight = global.window.screen.availHeight;
     const landscape = deviceHeight < deviceWidth;
-    // if (this.matchAllQueries() || !this.firstRun) {
-      this.firstRun = false;
-      this.setState({
-        viewportWidth,
-        deviceWidth,
-        deviceHeight,
-        landscape,
-      });
-    // }
 
+    this.setState({
+      viewportWidth,
+      deviceWidth,
+      deviceHeight,
+      landscape,
+    });
   }
 
   matchDefaultBreakpoint() {
@@ -114,7 +116,6 @@ export default class MediaQuery extends Component {
 
   matchAllQueries() {
     const { breakpoints, queries: additionalQueries } = this.props;
-
     const queries = [...breakpoints.map(breakpoint => QUERY[breakpoint]), ...additionalQueries];
 
     const positiveResult = queries
@@ -201,7 +202,7 @@ export default class MediaQuery extends Component {
     let node = null;
     if (canUseDOM) {
       // browser
-      if (this.matchAllQueries())  {
+      if (this.matchAllQueries()) {
         node = this.renderComponent();
       }
     } else if (this.matchDefaultBreakpoint()) {

@@ -1,5 +1,7 @@
-react-media-query
+# DEPRECATED ⛔
 =======
+
+This package is no longer supported.
 
 [![npm Version](https://img.shields.io/npm/v/@dailybeast/react-media-query.svg)](https://www.npmjs.com/package/@dailybeast/react-media-query) [![License](https://img.shields.io/npm/l/@dailybeast/react-media-query.svg)](https://www.npmjs.com/package/@dailybeast/react-media-query)
 
